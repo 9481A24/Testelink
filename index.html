@@ -173,8 +173,6 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
       <option value="6">6 horas</option>
       <option value="7">7 horas</option>
       <option value="8">8 horas</option>
-      <option value="9">9 horas</option>
-      <option value="10">10 horas</option>
     </select>
     
     <select name="pagamento" required>
@@ -215,27 +213,33 @@ overlay.addEventListener("click", ()=>{ overlay.style.display="none"; formulario
 // CALENDÁRIO
 let datasOcupadas = ["2026-02-25","2026-02-28","2026-03-05"]; // datas ocupadas
 const calendario = document.getElementById("calendario");
+const formulario = document.getElementById("formulario");
 const today = new Date();
 
-for(let i=0;i<30;i++){
-  let d = new Date();
-  d.setDate(today.getDate()+i);
-  
-  let diaBtn = document.createElement("div");
-  diaBtn.classList.add("dia");
-  diaBtn.textContent = d.getDate();
-  
-  let strDate = d.toISOString().slice(0,10);
-  
-  if(datasOcupadas.includes(strDate)){
-    diaBtn.classList.add("indisponivel"); // vermelho
-  } else {
-    diaBtn.style.background="#25D366"; // verde disponível
-    diaBtn.style.color="white";
-  }
-  
-  diaBtn.addEventListener("click",()=>{
-    if(!diaBtn.classList.contains("indisponivel")){
+function criarCalendario(){
+  calendario.innerHTML = "";
+  for(let i=0;i<30;i++){
+    let d = new Date();
+    d.setDate(today.getDate()+i);
+    
+    let diaBtn = document.createElement("div");
+    diaBtn.classList.add("dia");
+    diaBtn.textContent = d.getDate();
+    
+    let strDate = d.toISOString().slice(0,10);
+    
+    if(datasOcupadas.includes(strDate)){
+      diaBtn.classList.add("indisponivel"); // vermelho
+    } else {
+      diaBtn.style.background="#25D366"; // verde disponível
+      diaBtn.style.color="white";
+    }
+    
+    diaBtn.addEventListener("click",()=>{
+      if(diaBtn.classList.contains("indisponivel")){
+        alert("Data não está disponível!");
+        return;
+      }
       // Remove input antigo se existir
       let inputExistente = formulario.querySelector("input[name='data']");
       if(inputExistente) inputExistente.remove();
@@ -250,13 +254,14 @@ for(let i=0;i<30;i++){
       // Marca selecionado
       document.querySelectorAll(".dia").forEach(el=>el.style.border="");
       diaBtn.style.border="2px solid blue";
-    }
-  });
+    });
 
-  calendario.appendChild(diaBtn);
+    calendario.appendChild(diaBtn);
+  }
 }
+criarCalendario();
 
-// ENVIO FORMULÁRIO CORRIGIDO
+// ENVIO FORMULÁRIO
 formulario.addEventListener("submit", function(e){
   e.preventDefault();
 
@@ -275,20 +280,17 @@ formulario.addEventListener("submit", function(e){
   const pix = formulario.pix.value;
   const horas = parseInt(formulario.horas.value);
   const valor = (39.90 * horas).toFixed(2);
-  const cupons = horas;
   const pagamento = formulario.pagamento.value;
-  
-  if(pagamento=="pix"){ 
-    alert("Direcionando para pagamento Pix..."); 
-  } else if(pagamento=="cartao"){ 
-    alert("Direcionando para pagamento Cartão de Crédito..."); 
-  }
 
-  // Gera comprovante PDF
+  // Adiciona data como ocupada
+  datasOcupadas.push(data);
+  criarCalendario();
+
+  // Gera PDF
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   doc.setFontSize(14);
-  doc.text("Comprovante de Agendamento - Promoção Faxina", 20, 20);
+  doc.text("Comprovante de Agendamento - Promoção Faxina",20,20);
   doc.setFontSize(12);
   doc.text(`Empresa: ${empresa}`,20,30);
   doc.text(`CNPJ: ${cnpj}`,20,40);
@@ -296,13 +298,12 @@ formulario.addEventListener("submit", function(e){
   doc.text(`Celular: ${celular}`,20,60);
   doc.text(`Horas contratadas: ${horas}`,20,70);
   doc.text(`Valor total: R$ ${valor}`,20,80);
-  doc.text(`Quantidade de cupons: ${cupons}`,20,90);
-  doc.text(`Chave Pix: ${pix}`,20,100);
-  doc.text(`Data escolhida: ${data}`,20,110);
-  doc.text(`Forma de pagamento: ${pagamento}`,20,120);
+  doc.text(`Chave Pix: ${pix}`,20,90);
+  doc.text(`Data escolhida: ${data}`,20,100);
+  doc.text(`Forma de pagamento: ${pagamento}`,20,110);
   doc.save(`Comprovante_${nome}.pdf`);
 
-  alert(`Comprovante gerado!\nValor total: R$${valor}\nCupons: ${cupons}\nData: ${data}`);
+  alert(`Comprovante gerado!\nValor total: R$${valor}\nData: ${data}`);
   formulario.reset();
   overlay.style.display="none";
   formularioDiv.style.display="none";
