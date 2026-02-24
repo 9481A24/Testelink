@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,7 +11,7 @@
 html,body{width:100%;font-family:Arial,sans-serif;overflow-x:hidden;background:white;text-align:center;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;width:100%;height:6px;background:#FF8C00;z-index:1000;}
+nav{position:fixed; top:0; left:0;width:100%; height:6px;background:#FF8C00; z-index:1000;}
 
 /* LOGO */
 .logo-centro{display:flex;justify-content:center;align-items:center;width:100%;margin-top:40px;}
@@ -52,17 +53,17 @@ nav{position:fixed;top:0;left:0;width:100%;height:6px;background:#FF8C00;z-index
 
 /* POPUP FORMULÁRIO */
 #overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;}
-#meuFormulario{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#f2f2f2;padding:30px;border-radius:10px;width:360px;z-index:1000;box-shadow:0 0 15px rgba(0,0,0,0.5);}
+#meuFormulario{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#f2f2f2;padding:30px;border-radius:10px;width:350px;z-index:1000;box-shadow:0 0 15px rgba(0,0,0,0.5);}
 #meuFormulario h2{margin-bottom:20px;}
 #meuFormulario input, #meuFormulario select{width:100%;padding:8px;margin-bottom:10px;box-sizing:border-box;}
 #meuFormulario button{padding:10px 20px;font-size:16px;border:none;border-radius:5px;cursor:pointer;}
-#enviarBtn{background:#00cc66;color:white;margin-bottom:10px;}
-#fecharPopup{background:#ff4444;color:white;margin-left:10px;}
+#enviarBtn{ background:#00cc66; color:white; margin-bottom:10px; }
+#fecharPopup{ background:#ff4444; color:white; margin-left:10px; } 
 
-/* CALENDÁRIO */
-#calendario{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:10px 0;}
-.dia{padding:8px;background:#25D366;color:white;border-radius:5px;cursor:pointer;}
-.indisponivel{background:#ff4444 !important;cursor:not-allowed;}
+/* CALENDÁRIO PRÓPRIO */
+.calendario{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:15px;}
+.dia{padding:10px;background:#25D366;color:white;border-radius:5px;cursor:pointer;}
+.dia.indisponivel{background:red;cursor:not-allowed;}
 
 /* WHATSAPP FLUTUANTE */
 .whatsapp-btn{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:white;font-weight:bold;padding:15px 20px;border-radius:30px;box-shadow:0 4px 12px rgba(0,0,0,0.4);z-index:9999;text-decoration:none;}
@@ -71,15 +72,21 @@ nav{position:fixed;top:0;left:0;width:100%;height:6px;background:#FF8C00;z-index
 footer{background:#f4f4f4;padding:15px;margin-top:30px;}
 
 /* RESPONSIVO */
-@media(max-width:768px){.carousel-container{ max-width:90%;}.carousel-video{ height:160px;}.logo-centro img{ width:90%;}.fotos-card img{ width:80%; }}
+@media(max-width:768px){
+  .carousel-container{ max-width:90%; }
+  .carousel-video{ height:160px; }
+  .logo-centro img{ width:90%; }
+  .fotos-card img{ width:80%; }
+}
 </style>
 </head>
+
 <body>
 
 <nav></nav>
 
 <div class="logo-centro">
-  <img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/6b4a9b67-40ac-4018-8234-0f6fac106c70.png" alt="Logo">
+  <img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/6b4a9b67-40ac-4018-8234-0f6fac106c70.png">
 </div>
 
 <div class="hero">
@@ -92,13 +99,25 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
 
 <!-- PLANOS -->
 <div class="planos">
-  <div class="plano"><h2>Produtos Incluso</h2><div class="preco">Limpeza Completa</div>
-    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/5beda22e-693e-4f42-a51c-a1fb75aa1155-wm.png"></div></div>
-  <div class="plano"><h2>Produtos Qualidade</h2>
-    <p>✔️ ✨ Resultado que impressiona</p><p>✔️ 🎁 Ambiente renovado</p>
-    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/454ce91f-05a3-498b-8b1b-9016af3887d6-wm.png"></div></div>
-  <div class="plano"><h2>Lavagem Estofados</h2><div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/49d9060d-2e49-45c1-ae83-bfa2da9313c2-wm.png"></div></div>
-  <div class="plano"><h2>Grande Sorteio</h2><div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/44e8a543-03a8-474c-ba59-ec655b90c658-wm.png"></div></div>
+  <div class="plano">
+    <h2>Produtos Incluso</h2>
+    <div class="preco">Limpeza Completa</div>
+    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/5beda22e-693e-4f42-a51c-a1fb75aa1155-wm.png" alt="Plano Essencial"></div>
+  </div>
+  <div class="plano">
+    <h2>Produtos Qualidade</h2>
+    <p>✔️ ✨ Resultado que impressiona</p>
+    <p>✔️ 🎁 Ambiente renovado</p>
+    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/454ce91f-05a3-498b-8b1b-9016af3887d6-wm.png" alt="Plano Premium"></div>
+  </div>
+  <div class="plano">
+    <h2>Lavagem Estofados</h2>
+    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/49d9060d-2e49-45c1-ae83-bfa2da9313c2-wm.png" alt="Lavagem Estofados"></div>
+  </div>
+  <div class="plano">
+    <h2>Grande Sorteio</h2>
+    <div class="fotos-card"><img src="https://raw.githubusercontent.com/9481A24/Site_completo_-formulario/main/44e8a543-03a8-474c-ba59-ec655b90c658-wm.png" alt="Limpeza por Hora"></div>
+  </div>
 </div>
 
 <!-- DIFERENCIAL -->
@@ -112,14 +131,14 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
   <div class="selo-confianca">⭐ Empresa Regularizada – CNPJ Ativo</div>
 </div>
 
-<!-- CARROSSEL -->
+<!-- CARROSSEL DEPOIMENTOS -->
 <div class="depoimentos-carrossel" id="depoimentos">
   <h3>Depoimentos de Clientes</h3>
   <div class="carousel-container">
     <div class="carousel-slide">
-      <iframe class="carousel-video" src="https://www.youtube.com/embed/tgbNymZ7vqY?mute=1"></iframe>
-      <iframe class="carousel-video" src="https://www.youtube.com/embed/sBws8MSXN7A?mute=1"></iframe>
-      <iframe class="carousel-video" src="https://www.youtube.com/embed/aqz-KE-bpKQ?mute=1"></iframe>
+      <iframe class="carousel-video" src="https://www.youtube.com/embed/tgbNymZ7vqY?mute=1" frameborder="0" allowfullscreen></iframe>
+      <iframe class="carousel-video" src="https://www.youtube.com/embed/sBws8MSXN7A?mute=1" frameborder="0" allowfullscreen></iframe>
+      <iframe class="carousel-video" src="https://www.youtube.com/embed/aqz-KE-bpKQ?mute=1" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -134,29 +153,35 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
 <!-- POPUP FORMULÁRIO -->
 <div id="overlay"></div>
 <div id="meuFormulario">
-  <h2>Agendamento Faxina</h2>
+  <h2>Sorteio grátis faxina</h2>
   <form id="formulario">
-    <input type="text" name="nome" placeholder="Nome" required>
-    <input type="tel" name="celular" placeholder="Celular" required>
     <input type="text" name="empresa" value="Jeová-Jiré" readonly>
     <input type="text" name="cnpj" value="59.711.008/0001-09" readonly>
+    <input type="text" name="nome" placeholder="Nome do cliente" required>
+    <input type="tel" name="celular" placeholder="Celular" required>
+    <input type="text" name="pix" placeholder="Chave Pix (opcional se pagar cartão)" >
     
     <label for="data">Escolha a data:</label>
-    <div id="calendario"></div>
+    <div class="calendario" id="calendario"></div>
     
     <select name="horas" required>
-      <option value="">Quantidade de horas</option>
+      <option value="">Selecione quantidade de horas</option>
       <option value="1">1 hora</option>
       <option value="2">2 horas</option>
       <option value="3">3 horas</option>
       <option value="4">4 horas</option>
       <option value="5">5 horas</option>
+      <option value="6">6 horas</option>
+      <option value="7">7 horas</option>
+      <option value="8">8 horas</option>
+      <option value="9">9 horas</option>
+      <option value="10">10 horas</option>
     </select>
     
     <select name="pagamento" required>
       <option value="">Forma de pagamento</option>
       <option value="pix">Pix</option>
-      <option value="cartao">Cartão de crédito</option>
+      <option value="cartao">Cartão de Crédito</option>
     </select>
     
     <button type="submit" id="enviarBtn">Enviar</button>
@@ -165,7 +190,10 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
 </div>
 
 <a class="whatsapp-btn" href="https://wa.me/5531995439612" target="_blank">Falar com profissional</a>
-<footer>CNPJ: 59.711.008/0001-09 – Jeová-Jiré</footer>
+
+<footer>
+CNPJ: 59.711.008/0001-09 – Jeová-Jiré
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
@@ -181,72 +209,81 @@ const botaoAgendar = document.getElementById("agendarBtn");
 const formularioDiv = document.getElementById("meuFormulario");
 const overlay = document.getElementById("overlay");
 const fecharBtn = document.getElementById("fecharPopup");
-botaoAgendar.addEventListener("click", e=>{e.preventDefault(); overlay.style.display="block"; formularioDiv.style.display="block";});
-fecharBtn.addEventListener("click", ()=>{overlay.style.display="none"; formularioDiv.style.display="none";});
-overlay.addEventListener("click", ()=>{overlay.style.display="none"; formularioDiv.style.display="none";});
+botaoAgendar.addEventListener("click", e=>{ e.preventDefault(); overlay.style.display="block"; formularioDiv.style.display="block"; });
+fecharBtn.addEventListener("click", ()=>{ overlay.style.display="none"; formularioDiv.style.display="none"; });
+overlay.addEventListener("click", ()=>{ overlay.style.display="none"; formularioDiv.style.display="none"; });
 
-// CALENDÁRIO SIMPLES
+// CALENDÁRIO
+let datasOcupadas = []; // Aqui você pode adicionar datas bloqueadas manualmente ou via Firebase
 const calendario = document.getElementById("calendario");
-let datasOcupadas = []; // aqui armazena datas já preenchidas
-let dataSelecionada = null;
-
-function gerarCalendario(){
-  calendario.innerHTML="";
-  const hoje = new Date();
-  for(let i=0;i<30;i++){
-    const dia = new Date();
-    dia.setDate(hoje.getDate()+i);
-    const diaNum = dia.getDate();
-    const div = document.createElement("div");
-    div.classList.add("dia");
-    div.textContent=diaNum;
-    const diaStr = dia.toISOString().split("T")[0];
-    if(datasOcupadas.includes(diaStr)){div.classList.add("indisponivel");}
-    div.addEventListener("click",()=>{if(!div.classList.contains("indisponivel")){dataSelecionada=diaStr;alert("Data selecionada: "+diaStr);}} );
-    calendario.appendChild(div);
-  }
+const today = new Date();
+for(let i=0;i<30;i++){
+  let d = new Date();
+  d.setDate(today.getDate()+i);
+  let diaBtn = document.createElement("div");
+  diaBtn.classList.add("dia");
+  diaBtn.textContent = d.getDate();
+  let strDate = d.toISOString().slice(0,10);
+  if(datasOcupadas.includes(strDate)){ diaBtn.classList.add("indisponivel"); }
+  diaBtn.addEventListener("click",()=>{
+    if(!diaBtn.classList.contains("indisponivel")){
+      document.querySelector("#meuFormulario input[name='data']")?.remove();
+      let inputData = document.createElement("input");
+      inputData.type="hidden"; inputData.name="data"; inputData.value=strDate;
+      formulario.appendChild(inputData);
+      // Marca selecionado
+      document.querySelectorAll(".dia").forEach(el=>el.style.border="");
+      diaBtn.style.border="2px solid blue";
+    }
+  });
+  calendario.appendChild(diaBtn);
 }
-gerarCalendario();
 
-// ENVIO FORMULÁRIO E PDF
+// ENVIO FORMULÁRIO
 const formulario = document.getElementById("formulario");
 formulario.addEventListener("submit", function(e){
   e.preventDefault();
-  if(!dataSelecionada){alert("Escolha uma data disponível!"); return;}
-  
-  const nome = formulario.nome.value;
-  const celular = formulario.celular.value;
   const empresa = formulario.empresa.value;
   const cnpj = formulario.cnpj.value;
+  const nome = formulario.nome.value;
+  const celular = formulario.celular.value;
+  const pix = formulario.pix.value;
+  const data = formulario.data.value;
   const horas = parseInt(formulario.horas.value);
+  const valor = (39.90 * horas).toFixed(2);
+  const cupons = horas;
   const pagamento = formulario.pagamento.value;
-  const valor = (39.90*horas).toFixed(2);
   
-  // Pagamento Cartão
-  if(pagamento==="cartao"){
-    const precoCentavos = Math.round(valor*100);
-    const checkoutLink = `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=SEU_PREF_ID&amount=${precoCentavos}&description=${encodeURIComponent(nome+' - Faxina')}`;
-    window.open(checkoutLink,"_blank");
+  if(!data){ alert("Selecione uma data"); return; }
+
+  // Redireciona para pagamento Pix ou Cartão
+  if(pagamento=="pix"){ 
+    alert("Direcionando para pagamento Pix..."); 
+    // Aqui você pode gerar link de pagamento Mercado Pago
+  } else if(pagamento=="cartao"){ 
+    alert("Direcionando para pagamento Cartão de Crédito..."); 
+    // Aqui você pode gerar link de pagamento Mercado Pago
   }
 
-  datasOcupadas.push(dataSelecionada); // bloqueia data
-  gerarCalendario(); // atualizar calendário
-
+  // Gera comprovante PDF
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   doc.setFontSize(14);
   doc.text("Comprovante de Agendamento - Promoção Faxina", 20, 20);
   doc.setFontSize(12);
-  doc.text(`Nome: ${nome}`,20,30);
-  doc.text(`Celular: ${celular}`,20,40);
-  doc.text(`Empresa: ${empresa}`,20,50);
-  doc.text(`CNPJ: ${cnpj}`,20,60);
-  doc.text(`Horas: ${horas}`,20,70);
-  doc.text(`Valor Total: R$${valor}`,20,80);
-  doc.text(`Data escolhida: ${dataSelecionada}`,20,90);
-  doc.text(`Pagamento: ${pagamento}`,20,100);
+  doc.text(`Empresa: ${empresa}`,20,30);
+  doc.text(`CNPJ: ${cnpj}`,20,40);
+  doc.text(`Nome: ${nome}`,20,50);
+  doc.text(`Celular: ${celular}`,20,60);
+  doc.text(`Horas contratadas: ${horas}`,20,70);
+  doc.text(`Valor total: R$ ${valor}`,20,80);
+  doc.text(`Quantidade de cupons: ${cupons}`,20,90);
+  doc.text(`Chave Pix: ${pix}`,20,100);
+  doc.text(`Data escolhida: ${data}`,20,110);
+  doc.text(`Forma de pagamento: ${pagamento}`,20,120);
   doc.save(`Comprovante_${nome}.pdf`);
 
+  alert(`Comprovante gerado!\nValor total: R$${valor}\nCupons: ${cupons}\nData: ${data}`);
   formulario.reset();
   overlay.style.display="none";
   formularioDiv.style.display="none";
