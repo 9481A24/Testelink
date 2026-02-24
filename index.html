@@ -212,7 +212,7 @@ botaoAgendar.addEventListener("click", e=>{ e.preventDefault(); overlay.style.di
 fecharBtn.addEventListener("click", ()=>{ overlay.style.display="none"; formularioDiv.style.display="none"; });
 overlay.addEventListener("click", ()=>{ overlay.style.display="none"; formularioDiv.style.display="none"; });
 
-// CALENDÁRIO - datas ocupadas/verdes
+// CALENDÁRIO
 let datasOcupadas = ["2026-02-25","2026-02-28","2026-03-05"]; // datas ocupadas
 const calendario = document.getElementById("calendario");
 const today = new Date();
@@ -237,7 +237,7 @@ for(let i=0;i<30;i++){
   diaBtn.addEventListener("click",()=>{
     if(!diaBtn.classList.contains("indisponivel")){
       // Remove input antigo se existir
-      let inputExistente = document.querySelector("#meuFormulario input[name='data']");
+      let inputExistente = formulario.querySelector("input[name='data']");
       if(inputExistente) inputExistente.remove();
 
       // Cria novo input hidden
@@ -256,30 +256,32 @@ for(let i=0;i<30;i++){
   calendario.appendChild(diaBtn);
 }
 
-// ENVIO FORMULÁRIO
-const formulario = document.getElementById("formulario");
+// ENVIO FORMULÁRIO CORRIGIDO
 formulario.addEventListener("submit", function(e){
   e.preventDefault();
+
+  const inputData = formulario.querySelector("input[name='data']");
+  const data = inputData ? inputData.value : "";
+
+  if(!data){ 
+    alert("Selecione uma data"); 
+    return; 
+  }
+
   const empresa = formulario.empresa.value;
   const cnpj = formulario.cnpj.value;
   const nome = formulario.nome.value;
   const celular = formulario.celular.value;
   const pix = formulario.pix.value;
-  const data = formulario.data.value;
   const horas = parseInt(formulario.horas.value);
   const valor = (39.90 * horas).toFixed(2);
   const cupons = horas;
   const pagamento = formulario.pagamento.value;
   
-  if(!data){ alert("Selecione uma data"); return; }
-
-  // Redireciona para pagamento Pix ou Cartão
   if(pagamento=="pix"){ 
     alert("Direcionando para pagamento Pix..."); 
-    // Aqui você pode gerar link de pagamento Mercado Pago
   } else if(pagamento=="cartao"){ 
     alert("Direcionando para pagamento Cartão de Crédito..."); 
-    // Aqui você pode gerar link de pagamento Mercado Pago
   }
 
   // Gera comprovante PDF
