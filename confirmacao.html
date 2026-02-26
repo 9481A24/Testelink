@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmação do Pedido - Faxina</title>
+<style>
+body{font-family:Arial,sans-serif;text-align:center;background:#f9f9f9;color:#333;margin:0;padding:0;}
+header{background:#FF8C00;color:white;padding:20px;font-size:1.5em;font-weight:bold;}
+.container{padding:30px;}
+h2{color:#FF8C00;}
+p{font-size:1.1em;margin:10px 0;}
+.cupons{margin-top:20px;background:#25D366;color:white;padding:15px;border-radius:8px;display:inline-block;}
+</style>
+</head>
+<body>
+<header>Pedido Recebido!</header>
+<div class="container">
+  <h2>Obrigado pelo seu pedido 🎉</h2>
+  <p>Nome: <span id="nome"></span></p>
+  <p>Celular: <span id="celular"></span></p>
+  <p>Horas contratadas: <span id="horas"></span></p>
+  <p>Valor total: R$ <span id="valor"></span></p>
+  <p>Data escolhida: <span id="data"></span></p>
+  <p>Forma de pagamento: <span id="pagamento"></span></p>
+  <div class="cupons">
+    Cupons gerados: <span id="cupons"></span>
+  </div>
+  <p>Leve esse comprovante como garantia de sua participação no sorteio.</p>
+</div>
+
+<script>
+// Lê parâmetros da URL
+const params = new URLSearchParams(window.location.search);
+document.getElementById("nome").textContent = params.get("nome");
+document.getElementById("celular").textContent = params.get("celular");
+document.getElementById("horas").textContent = params.get("horas");
+document.getElementById("valor").textContent = params.get("valor");
+document.getElementById("data").textContent = params.get("data");
+document.getElementById("pagamento").textContent = params.get("pagamento");
+document.getElementById("cupons").textContent = params.get("cupons");
+</script>
+</body>
+</html>
 
