@@ -314,7 +314,7 @@ formulario.addEventListener("submit", function(e){
     cupons.push(gerarCupom());
   }
 
-  // PDF
+  // PDF com nome único
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   doc.setFontSize(14);
@@ -328,15 +328,19 @@ formulario.addEventListener("submit", function(e){
   doc.text(`Data escolhida: ${data}`,20,80);
   doc.text(`Forma de pagamento: ${pagamento}`,20,90);
   doc.text(`Cupons: ${cupons.join(", ")}`,20,100);
-  doc.save(`Comprovante_${nome}.pdf`);
+  
+  const timestamp = new Date().getTime();
+  doc.save(`Comprovante_${nome}_${timestamp}.pdf`);
 
   // MOSTRA CONFIRMAÇÃO
   document.getElementById("cupom").innerText = cupons.join(", ");
   document.getElementById("resumoPedido").innerText = 
     `Nome: ${nome}\nCelular: ${celular}\nHoras: ${horas}\nValor total: R$${valor}\nData: ${data}\nPagamento: ${pagamento}`;
 
-  // REDIRECIONA PARA A PÁGINA DE OBRIGADO
-  window.location.href = "https://9481a24.github.io/Azulejistaprofissional/obrigado.html";
+  confirmacaoDiv.style.display = "block";
+
+  // REDIRECIONA PARA página obrigado.html depois de 1s
+  setTimeout(()=>{ window.location.href = "obrigado.html"; }, 1000);
 });
 
 // FECHAR CONFIRMAÇÃO
@@ -350,4 +354,3 @@ function fecharConfirmacao(){
 </body>
 </html>
 
-  
