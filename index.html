@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -64,6 +65,12 @@ nav{position:fixed; top:0; left:0;width:100%; height:6px;background:#FF8C00; z-i
 #enviarBtn, #fecharPopup{flex:1;padding:10px;font-size:14px;border:none;border-radius:5px;cursor:pointer;}
 #enviarBtn{background:#00cc66;color:white;margin-right:5px;}
 #fecharPopup{background:#ff4444;color:white;margin-left:5px;}
+
+/* CONFIRMAÇÃO */
+#confirmacao{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:25px;border-radius:12px;z-index:1001;box-shadow:0 0 20px rgba(0,0,0,0.5);width:350px;max-height:90vh;overflow-y:auto;text-align:left;}
+#confirmacao h2{color:#FF8C00;margin-bottom:15px;}
+#confirmacao pre{background:#f4f4f4;padding:10px;border-radius:8px;white-space:pre-wrap;word-wrap:break-word;font-size:14px;}
+#confirmacao button{margin-top:15px;background:#25D366;color:white;padding:10px 15px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
 
 /* MENUS */
 .menu{display:none;}
@@ -186,6 +193,7 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
         <option value="6">6 horas</option>
         <option value="7">7 horas</option>
         <option value="8">8 horas</option>
+        <option value="9">9 horas</option>
       </select>
 
       <select name="pagamento" required>
@@ -201,6 +209,14 @@ footer{background:#f4f4f4;padding:15px;margin-top:30px;}
     </div>
 
   </form>
+</div>
+
+<!-- TELA DE CONFIRMAÇÃO -->
+<div id="confirmacao">
+  <h2>✅ Pedido Confirmado!</h2>
+  <pre id="resumoPedido"></pre>
+  <pre><strong>Cupons:</strong> <span id="cupom"></span></pre>
+  <button onclick="fecharConfirmacao()">Fechar</button>
 </div>
 
 <a class="whatsapp-btn" href="https://wa.me/5531995439612" target="_blank">Falar com profissional</a>
@@ -233,7 +249,6 @@ const proximoBtn = document.getElementById("proximoBtn");
 const voltarBtn = document.getElementById("voltarBtn");
 
 proximoBtn.addEventListener("click", ()=>{
-  // Valida menu 1
   const nome = menu1.querySelector("input[name='nome']").value;
   const celular = menu1.querySelector("input[name='celular']").value;
   if(!nome || !celular){ alert("Preencha Nome e Celular"); return; }
@@ -267,6 +282,8 @@ flatpickr("#dataInput", {
 
 // ENVIO FORMULÁRIO
 const formulario = document.getElementById("formulario");
+const confirmacaoDiv = document.getElementById("confirmacao");
+
 formulario.addEventListener("submit", function(e){
   e.preventDefault();
 
@@ -281,10 +298,24 @@ formulario.addEventListener("submit", function(e){
   const valor = (39.90 * horas).toFixed(2);
   const pagamento = formulario.pagamento.value;
 
-  // Bloqueia data escolhida
   datasOcupadas.push(data);
 
-  // Gera PDF
+  // Gera cupons por hora
+  function gerarCupom() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let codigo = "";
+    for(let i=0;i<4;i++){ codigo += chars.charAt(Math.floor(Math.random()*chars.length)); }
+    codigo += "-";
+    for(let i=0;i<4;i++){ codigo += chars.charAt(Math.floor(Math.random()*chars.length)); }
+    return codigo;
+  }
+
+  const cupons = [];
+  for(let i=0;i<horas;i++){
+    cupons.push(gerarCupom());
+  }
+
+  // PDF
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   doc.setFontSize(14);
@@ -297,16 +328,25 @@ formulario.addEventListener("submit", function(e){
   doc.text(`Valor total: R$ ${valor}`,20,70);
   doc.text(`Data escolhida: ${data}`,20,80);
   doc.text(`Forma de pagamento: ${pagamento}`,20,90);
+  doc.text(`Cupons: ${cupons.join(", ")}`,20,100);
   doc.save(`Comprovante_${nome}.pdf`);
 
-  alert(`Comprovante gerado!\nValor total: R$${valor}\nData: ${data}`);
-  formulario.reset();
-  overlay.style.display="none";
-  formularioDiv.style.display="none";
-  menu2.classList.remove("active");
-  menu1.classList.add("active");
+  // MOSTRA CONFIRMAÇÃO
+  document.getElementById("cupom").innerText = cupons.join(", ");
+  document.getElementById("resumoPedido").innerText = 
+    `Nome: ${nome}\nCelular: ${celular}\nHoras: ${horas}\nValor total: R$${valor}\nData: ${data}\nPagamento: ${pagamento}`;
+
+  confirmacaoDiv.style.display = "block";
 });
+
+// FECHAR CONFIRMAÇÃO
+function fecharConfirmacao(){
+  confirmacaoDiv.style.display="none";
+  formularioDiv.style.display="none";
+  overlay.style.display="none";
+}
 </script>
+
 </body>
 </html>
   
