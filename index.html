@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -336,7 +335,8 @@ formulario.addEventListener("submit", function(e){
   document.getElementById("resumoPedido").innerText = 
     `Nome: ${nome}\nCelular: ${celular}\nHoras: ${horas}\nValor total: R$${valor}\nData: ${data}\nPagamento: ${pagamento}`;
 
-  confirmacaoDiv.style.display = "block";
+  // REDIRECIONA PARA A PÁGINA DE OBRIGADO
+  window.location.href = "https://9481a24.github.io/Azulejistaprofissional/obrigado.html";
 });
 
 // FECHAR CONFIRMAÇÃO
@@ -349,4 +349,5 @@ function fecharConfirmacao(){
 
 </body>
 </html>
+
   
